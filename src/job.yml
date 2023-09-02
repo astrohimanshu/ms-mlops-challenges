@@ -1,5 +1,5 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
-code: model/
+code: model
 command: >-
   python train.py
   --training_data ${{inputs.training_data}}
@@ -9,7 +9,7 @@ inputs:
     type: uri_folder 
     path: /home/azureuser/cloudfiles/code/Users/ms-mlops-challenges/experimentation/data/
   reg_rate: 0.01
-environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
+environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu:36
 compute: azureml:mlops-comp-inst
 experiment_name: job_yml
 description: created job through yml file executed using cliv2
