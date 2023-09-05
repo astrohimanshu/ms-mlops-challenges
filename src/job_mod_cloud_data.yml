@@ -7,7 +7,7 @@ command: >-
 inputs:
   training_data:
     type: uri_folder
-    path: azureml://subscriptions/01e5a772-81a3-4deb-8ed6-2a9d36284b52/resourcegroups/myResourcegroupforML/workspaces/learnML/datastores/workspaceblobstore/paths/LocalUpload/b88df0369e5d56fe702bc83a74ff2a6c/data/
+    path: azureml://datastores/workspaceblobstore/paths/LocalUpload/b88df0369e5d56fe702bc83a74ff2a6c/data/
   reg_rate: 0.005
 environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu:36
 compute: azureml:clusterML
