@@ -1,0 +1,15 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+code: model
+command: >-
+  python train.py
+  --training_data ${{inputs.training_data}}
+  --reg_rate ${{inputs.reg_rate}}
+inputs:
+  training_data:
+    type: uri_folder
+    path: https://github.com/astrohimanshu/ms-mlops-challenges/tree/11a62df1b491a6664f8f7212df69e34b52892bb9/experimentation/data
+  reg_rate: 0.005
+environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu:36
+compute: azureml:clusterML
+experiment_name: job_yml
+description: created job through yml file executed using cliv2 with github actions
