@@ -1,5 +1,5 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
-code: /home/azureuser/cloudfiles/code/Users/ms-mlops-challenges/src/model
+code: src/model
 command: >-
   python train.py
   --training_data ${{inputs.training_data}}
@@ -7,7 +7,7 @@ command: >-
 inputs:
   training_data: 
     type: uri_folder 
-    path: /home/azureuser/cloudfiles/code/Users/ms-mlops-challenges/experimentation/data/
+    path: /experimentation/data/
   reg_rate: 0.005
 environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu:36
 compute: azureml:clusterML
