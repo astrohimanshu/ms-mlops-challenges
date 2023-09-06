@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   job1:
-    name: linting
+    name: linting with pull
     runs-on: ubuntu-latest
     steps:
     - name: Check out repo
@@ -21,7 +21,7 @@ jobs:
       run: | 
         flake8 src/model/
   job2:
-    name: unit test
+    name: unit test with pull
     runs-on: ubuntu-latest
     steps:
     - name: Check out repo
