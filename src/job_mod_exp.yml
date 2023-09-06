@@ -9,7 +9,7 @@ inputs:
     type: uri_folder
     mode: download
     path: .././experimentation/data/
-  reg_rate: 0.01
+  reg_rate: 0.0004
 environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu:36
 compute: azureml:clusterML
 experiment_name: job_yml
