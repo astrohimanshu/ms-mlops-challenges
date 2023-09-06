@@ -1,8 +1,6 @@
 name: pull-triggered-job-lint-unit-test
 on:
-  push:
-    branches:
-      - main
+  [pull_request]
 jobs:
   job1:
     name: linting with pull
