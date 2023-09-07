@@ -1,0 +1,85 @@
+name: deploy-dev-prod
+on:
+  push:
+    branches:
+      - main
+jobs:
+    job1:
+        name: deploy-dev
+        environment: 
+          name: dev-environment
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repo
+              uses: actions/checkout@main
+            - name: Use Python version 3.8
+              uses: actions/setup-python@v2
+              with:
+                python-version: 3.8
+            - name: Install az ml extension
+              run: |
+                python -m pip install azure-cli
+                az extension add -n ml -y
+            - name: login in dev-environment
+              uses: azure/login@v1
+              with:
+                creds: ${{secrets.AZURE_CREDENTIALS_DEV}}
+            - name: Trigger AzureML job in dev-environment
+              run: |
+                az ml job create --file src/job_deploy_dev.yml \
+                --resource-group myResourcegroupforML --workspace-name learnML \
+                 -n dev-deploy-job-github
+    job2:
+        needs: job1
+        name: jobstatus
+        environment: 
+          name: dev-environment
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repo
+              uses: actions/checkout@main
+            - name: Use Python version 3.8
+              uses: actions/setup-python@v2
+              with:
+                python-version: 3.8
+            - name: Install az ml extension
+              run: |
+                python -m pip install azure-cli
+                az extension add -n ml -y
+            - name: login in dev-environment
+              uses: azure/login@v1
+              with:
+                creds: ${{secrets.AZURE_CREDENTIALS_DEV}} 
+            - name: Save job status
+              run: |
+                az ml job show -n dev-deploy-job-github \
+                -w learnML > jobstatus.json ; python check_job_status.py
+    job3:
+        needs: job2
+        name: deploy-prod
+        environment: 
+          name: prod-environment
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repo
+              uses: actions/checkout@main
+            - name: Use Python version 3.8
+              uses: actions/setup-python@v2
+              with:
+                python-version: 3.8
+            - name: Install az ml extension
+              run: |
+                pip install azure-cli
+                az extension add -n ml -y
+            - name: login in dev-environment
+              uses: azure/login@v1
+              with:
+                creds: ${{secrets.AZURE_CREDENTIALS_PROD}}
+            - name: Trigger AzureML job in prod-environment
+              run: |
+                az ml job create --file src/job_deploy_prod.yml \
+                --resource-group myResourcegroupforML --workspace-name learnML \
+                 -n prod-deploy-job-github
+
+      
+
