@@ -46,7 +46,7 @@ jobs:
                 python-version: 3.8
             - name: Install az ml extension
               run: |
-                pip install azure-cli
+                python -m pip install azure-cli
                 az extension add -n ml -y
             - name: login in dev-environment
               uses: azure/login@v1
@@ -55,7 +55,7 @@ jobs:
             - name: Trigger AzureML job in prod-environment
               run: |
                 az ml job create --file src/job_deploy_prod.yml \
-                --resource-group myResourcegroupforML --workspace-name learnML \
+                --resource-group myResourcegroupforML --workspace-name mlw-prod \
                  -n prod-deploy-job-github-${{github.run_number}}
 
       
