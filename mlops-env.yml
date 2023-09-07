@@ -1,4 +1,4 @@
-name: jupyter_env
+name: mlops-env
 channels:
   - conda-forge
   - anaconda
