@@ -4,10 +4,18 @@ import json
 dict = json.loads(open('job_status.json').read())
 # print the status
 
-while True:
-    if dict['status'] != 'Completed':
-        print('Job is not completed')
-        raise Exception('Job is not completed')
-    else:
+
+if dict['status'] == 'Running':
+    print('Job is running')
+if dict['status'] == 'Completed':
+    print('Job is completed')
+    
+while dict['status'] == 'Running':
+    if dict['status'] == 'Running':
+        print('Job is running')
+    elif dict['status'] == 'Failed':
+        print('Job is failed')
+        break
+    elif dict['status'] == 'Completed':
         print('Job is completed')
         break
