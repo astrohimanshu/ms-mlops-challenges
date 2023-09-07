@@ -7,7 +7,7 @@ jobs:
     job1:
         name: deploy-dev
         environment: 
-          name: dev-environment
+          name: development
         runs-on: ubuntu-latest
         steps:
             - name: Check out repo
@@ -33,7 +33,7 @@ jobs:
         needs: job1
         name: jobstatus
         environment: 
-          name: dev-environment
+          name: development
         runs-on: ubuntu-latest
         steps:
             - name: Check out repo
@@ -58,7 +58,7 @@ jobs:
         needs: job2
         name: deploy-prod
         environment: 
-          name: prod-environment
+          name: production
         runs-on: ubuntu-latest
         steps:
             - name: Check out repo
