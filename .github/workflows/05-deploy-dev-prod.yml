@@ -1,6 +1,8 @@
 name: deploy-dev-prod
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
   
 jobs:
     job1:
@@ -25,7 +27,7 @@ jobs:
                 creds: ${{secrets.AZURE_CREDENTIALS_DEV}}
             - name: Trigger AzureML job in dev-environment
               run: |
-                az ml job create --file src/job_mod_cloud_data.yml \
+                az ml job create --file src/job_deploy_dev_cloud.yml \
                 --resource-group myResourcegroupforML --workspace-name learnML \
                  -n dev-deploy-job-github-${{github.run_number}}   
             - name: Check job status
@@ -54,9 +56,6 @@ jobs:
                 creds: ${{secrets.AZURE_CREDENTIALS_PROD}}
             - name: Trigger AzureML job in prod-environment
               run: |
-                az ml job create --file src/job_deploy_prod.yml \
+                az ml job create --file src/job_deploy_prod_cloud.yml \
                 --resource-group myResourcegroupforML --workspace-name mlw-prod \
                  -n prod-deploy-job-github-${{github.run_number}}
-
-      
-
