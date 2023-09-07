@@ -53,7 +53,7 @@ jobs:
             - name: Save job status
               run: |
                 az ml job show -n dev-deploy-job-github \
-                -w learnML > jobstatus.json ; python check_job_status.py
+                -w learnML -g myResourcegroupforML > jobstatus.json ; python check_job_status.py
     job3:
         needs: job2
         name: deploy-prod
